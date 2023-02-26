@@ -22,7 +22,7 @@ function conferirPalpite(){
 
     if(palpiteUsuario === numeroAleatorio){//se o número estiver certo
         ultimoResultado.textContent = 'Parabéns! Você acertou!'
-        ultimoResultado.style.backgroundColor = 'green';
+        ultimoResultado.style.color = 'green';
         baixoOuAlto.textContent = '';
         configFimDeJogo();
     }else if (acumulaPalpites === 10){//se atingir o número de palpites máximo
@@ -31,7 +31,7 @@ function conferirPalpite(){
         configFimDeJogo();
     }else {//se nenhuma das opções acima 
         ultimoResultado.textContent = 'Errado!'//vai estar errado
-        ultimoResultado.style.backgroundColor = 'red';
+        ultimoResultado.style.color = 'red';
         if(palpiteUsuario < numeroAleatorio){
          baixoOuAlto.textContent = 'Seu palpite está muito baixo';//determina se palpite foi baixo
         }else if (palpiteUsuario > numeroAleatorio){
@@ -46,14 +46,16 @@ function conferirPalpite(){
 
 envioPalpite.addEventListener('click', conferirPalpite);//o que acontece quando o botão é clicado
 
-//quando o jogo acaba
+//quando o jogo acaba - criação de novo botão 
 function configFimDeJogo(){
     palpite.disable = true;//o input(...)
     envioPalpite.disable = true;//e o botão são desativados
-    botaoReinicio = document.createElement('button');//o botão para reiniciar aparece
-    botaoReinicio.textContent = 'Iniciar novo jogo';
-    document.body.appendChild(botaoReinicio);//o botão reinício aparece
-    botaoReinicio.addEventListener('click', reiniciarJogo);//e reinicia o jogo quando clicado
+    containerBtn = document.querySelector('.container-btn')//buscando elemento pai
+    botaoReinicio = document.createElement('button');//o botão para reiniciar é criado
+    botaoReinicio.textContent = 'Iniciar novo jogo';//o botão recebe esse texto
+    containerBtn.appendChild(botaoReinicio);//o botão reinício vira filho do container 
+    botaoReinicio.addEventListener('click', reiniciarJogo);//o click dispara a função mencionada
+    botaoReinicio.className = 'botao-reinicio';
 }
 
 //quando o jogo é reiniciado
