@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Function start</title>
+    <style>
+      .msgBox {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 242px;
+        background: #eee;
+      }
+
+      .msgBox p {
+        line-height: 1.5;
+        padding: 10px 20px;
+        color: #333;
+        padding-left: 82px;
+        background-position: 25px center;
+        background-repeat: no-repeat;
+      }
+
+      .msgBox button {
+        background: none;
+        border: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 1.1rem;
+        color: #aaa;
+      }
+
+    </style>
+  </head>
+  <body>
+    <button>Display message box</button>
+
+    <script>
+        //obs: quando invoca-se a função sem os () significa que está querendo chama-la apenas quando o evento for disparado e não a qualquer momento
+
+        var btn = document.querySelector('button');
+        btn.onclick = function(){//chamandoa função com seus parametros e dois msgtypes     diferentes
+            displayMessage('Your inbox is almost full — delete some mails', 'warning');
+            displayMessage('Brian: Hi there, how are you today?','chat');
+        };
+
+        function displayMessage(msgText, msgType) {// function c/ parametros
+        //selecionando
+        var html = document.querySelector('html');
+        var panel = document.createElement('div');
+        panel.setAttribute('class', 'msgBox');//adicionando nome da classe e valor
+        html.appendChild(panel);//add como filho de html
+
+        var msg = document.createElement('p');//cria elemento p
+        msg.textContent = msgText;//determina que esse elemento vai ter esse texto como conteudo
+        panel.appendChild(msg);//add como filho de panel
+
+        var closeBtn = document.createElement('button');//seleciona botão 
+        closeBtn.textContent = 'x';//determina o conteúdo do botão
+        panel.appendChild(closeBtn);//add como filho de panel
+
+        closeBtn.onclick = function() {//função de click
+        panel.parentNode.removeChild(panel);//quando clica, remove o que foi passado como parâmetro
+        }
+
+        if (msgType === 'warning') {//se a msg for do tipo warning 
+            msg.style.backgroundImage = 'url(icons/warning.png)';//mostra esse icone
+            panel.style.backgroundColor = '#CA8A42';//com esta cor de fundo
+        } else if (msgType === 'chat') {//se for do tipo chat
+            msg.style.backgroundImage = 'url(icons/chat.png)';//mostra outro icone com outra cor de fundo
+            panel.style.backgroundColor = '#9EDEC6';
+        } else {
+            msg.style.paddingLeft = '20px';
+        }
+    }
+
+    </script>
+  </body>
+</html>
